@@ -2,6 +2,7 @@
 <html>
 <script type='text/javascript' src='js/jquery-1.11.0.js'></script>
 <script type='text/javascript' src='js/jquery-ui-1.10.4.js'></script>
+<script type="text/javascript" src="js/jquery.fadeaudio.js"></script>
 <head>
   <meta charset="utf-8">
   <title>UNT 2048</title>
@@ -71,10 +72,11 @@
       </div>
     </div>
 
-      <audio loop="loop">
-          <source id="linuxAudio" src="style/music/fightSong.ogg" type="audio/ogg">
-          <source id="windowsAudio" src="style/music/fightSong.mp3" type="audio/mp3">
-          Your browser does not support the audio element.
+      <img id="audioImage" src="style/img/sound.png" alt="sound_images" onclick="controlMusic()">
+
+      <audio id="fightSong" loop="loop" autoplay="autoplay" preload="auto">
+          <source id="linuxAudio" src="style/music/unt-fight-song.ogg" type="audio/ogg">
+          <source id="windowsAudio" src="style/music/unt-fight-song.mp3" type="audio/mp3">
       </audio>
 
     <p class="game-explanation">
@@ -101,6 +103,7 @@
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
+  <script src="js/sound_manager.js"></script>
 
 </body>
 </html>

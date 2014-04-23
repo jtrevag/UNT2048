@@ -29,13 +29,15 @@ GameManager.prototype.setOriginalTheme = function() {
     $(".score-container").stop();
     $(".best-container").stop();
     $(".restart-button").stop();
-    $(".title").css("text", "UNT 2048");
+    $(".title").html("UNT 2048");
     $("html,body").css("background-color", "#95bf73");
     $(".game-container").css("background-color", "#658a48");
     $(".grid-cell").css("background-color", "#b0e188");
     $(".score-container").css("background-color", "#658a48");
     $(".best-container").css("background-color", "#658a48");
     $(".restart-button").css("background-color", "#215b33");
+    var song = document.getElementById("fightSong");
+    song.playbackRate = 1;
 };
 
 // Keep playing after winning (allows going over 2048)
@@ -66,7 +68,6 @@ GameManager.prototype.setup = function () {
     this.won         = previousState.won;
     this.scary       = previousState.scary;
       if(this.scary && this.score > 0){
-          alert('scary');
           $(".title").html("Scary 2048");
           $("html,body").css("background-color", "#993333");
           $(".game-container").css("background-color", "#cc3333");
@@ -74,8 +75,9 @@ GameManager.prototype.setup = function () {
           $(".score-container").css("background-color", "#cc3333");
           $(".best-container").css("background-color", "#cc3333");
           $(".restart-button").css("background-color", "#660000");
+          var song = document.getElementById("fightSong");
+          song.playbackRate = 0.5;
       } else{
-          alert('not scary');
           $(".title").stop();
           $("html,body").stop();
           $(".game-container").stop();
@@ -90,6 +92,8 @@ GameManager.prototype.setup = function () {
           $(".score-container").css("background-color", "#658a48");
           $(".best-container").css("background-color", "#658a48");
           $(".restart-button").css("background-color", "#215b33");
+          var song = document.getElementById("fightSong");
+          song.playbackRate = 1;
       }
     this.keepPlaying = previousState.keepPlaying;
 
@@ -237,6 +241,15 @@ GameManager.prototype.move = function (direction) {
               $(".score-container").animate({backgroundColor: "#cc3333" }, 12000);
               $(".best-container").animate({backgroundColor: "#cc3333" }, 12000);
               $(".restart-button").animate({backgroundColor: "#660000" }, 12000);
+              var slowInterval = setInterval(function () {
+                  var song = document.getElementById("fightSong");
+                  if(song.playbackRate > 0.5){
+                      song.playbackRate -= 0.05;
+                  } else{
+                      clearInterval(slowInterval)
+                  }
+              },1000);
+
           }
 
           // The mighty 2048 tile
