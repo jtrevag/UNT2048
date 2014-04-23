@@ -17,7 +17,25 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 GameManager.prototype.restart = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
+  this.setOriginalTheme();
   this.setup();
+};
+
+GameManager.prototype.setOriginalTheme = function() {
+    $(".title").stop();
+    $("html,body").stop();
+    $(".game-container").stop();
+    $(".grid-cell").stop();
+    $(".score-container").stop();
+    $(".best-container").stop();
+    $(".restart-button").stop();
+    $(".title").css("text", "UNT 2048");
+    $("html,body").css("background-color", "#95bf73");
+    $(".game-container").css("background-color", "#658a48");
+    $(".grid-cell").css("background-color", "#b0e188");
+    $(".score-container").css("background-color", "#658a48");
+    $(".best-container").css("background-color", "#658a48");
+    $(".restart-button").css("background-color", "#215b33");
 };
 
 // Keep playing after winning (allows going over 2048)
@@ -47,7 +65,34 @@ GameManager.prototype.setup = function () {
     this.over        = previousState.over;
     this.won         = previousState.won;
     this.scary       = previousState.scary;
+      if(this.scary && this.score > 0){
+          alert('scary');
+          $(".title").html("Scary 2048");
+          $("html,body").css("background-color", "#993333");
+          $(".game-container").css("background-color", "#cc3333");
+          $(".grid-cell").css("background-color", "#993333");
+          $(".score-container").css("background-color", "#cc3333");
+          $(".best-container").css("background-color", "#cc3333");
+          $(".restart-button").css("background-color", "#660000");
+      } else{
+          alert('not scary');
+          $(".title").stop();
+          $("html,body").stop();
+          $(".game-container").stop();
+          $(".grid-cell").stop();
+          $(".score-container").stop();
+          $(".best-container").stop();
+          $(".restart-button").stop();
+          $(".title").html("UNT 2048");
+          $("html,body").css("background-color", "#95bf73");
+          $(".game-container").css("background-color", "#658a48");
+          $(".grid-cell").css("background-color", "#b0e188");
+          $(".score-container").css("background-color", "#658a48");
+          $(".best-container").css("background-color", "#658a48");
+          $(".restart-button").css("background-color", "#215b33");
+      }
     this.keepPlaying = previousState.keepPlaying;
+
   } else {
     this.grid        = new Grid(this.size);
     this.score       = 0;
@@ -55,6 +100,7 @@ GameManager.prototype.setup = function () {
     this.won         = false;
     this.scary       = false;
     this.keepPlaying = false;
+   
 
     // Add the initial tiles
     this.addStartTiles();
@@ -87,6 +133,8 @@ GameManager.prototype.actuate = function () {
     this.storageManager.setBestScore(this.score);
   }
 
+
+
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
     this.storageManager.clearGameState();
@@ -102,6 +150,10 @@ GameManager.prototype.actuate = function () {
     bestScore:  this.storageManager.getBestScore(),
     terminated: this.isGameTerminated()
   });
+
+
+
+   
 
 };
 
@@ -176,10 +228,15 @@ GameManager.prototype.move = function (direction) {
 
           if(merged.value == 8 && self.scary == false){
               self.scary = true;
-              $("#unt2048").fadeOut(4000,function() {
-                  $(this).text("Scary 2048").fadeIn(4000);
+              $(".title").fadeOut(6000,function() {
+                  $(this).text("Scary 2048").fadeIn(6000);
               });
-              $("body").animate({backgroundColor: "#993333" }, 4000);
+              $("html,body").animate({backgroundColor: "#993333" }, 12000);
+              $(".game-container").animate({backgroundColor: "#cc3333" }, 12000);
+              $(".grid-cell").animate({backgroundColor: "#993333" }, 12000);
+              $(".score-container").animate({backgroundColor: "#cc3333" }, 12000);
+              $(".best-container").animate({backgroundColor: "#cc3333" }, 12000);
+              $(".restart-button").animate({backgroundColor: "#660000" }, 12000);
           }
 
           // The mighty 2048 tile
