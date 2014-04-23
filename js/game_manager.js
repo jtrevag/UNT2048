@@ -46,12 +46,14 @@ GameManager.prototype.setup = function () {
     this.score       = previousState.score;
     this.over        = previousState.over;
     this.won         = previousState.won;
+    this.scary       = previousState.scary;
     this.keepPlaying = previousState.keepPlaying;
   } else {
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
     this.won         = false;
+    this.scary       = false;
     this.keepPlaying = false;
 
     // Add the initial tiles
@@ -96,6 +98,7 @@ GameManager.prototype.actuate = function () {
     score:      this.score,
     over:       this.over,
     won:        this.won,
+    scary:      this.scary,
     bestScore:  this.storageManager.getBestScore(),
     terminated: this.isGameTerminated()
   });
@@ -109,6 +112,7 @@ GameManager.prototype.serialize = function () {
     score:       this.score,
     over:        this.over,
     won:         this.won,
+    scary:       this.scary,
     keepPlaying: this.keepPlaying
   };
 };
@@ -169,6 +173,14 @@ GameManager.prototype.move = function (direction) {
 
           // Update the score
           self.score += merged.value;
+
+          if(merged.value == 8 && self.scary == false){
+              self.scary = true;
+              $("#unt2048").fadeOut(4000,function() {
+                  $(this).text("Scary 2048").fadeIn(4000);
+              });
+              $("body").animate({backgroundColor: "#993333" }, 4000);
+          }
 
           // The mighty 2048 tile
           if (merged.value === 2048) self.won = true;
