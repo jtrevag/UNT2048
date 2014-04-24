@@ -77,6 +77,11 @@ GameManager.prototype.setup = function () {
           $(".restart-button").css("background-color", "#660000");
           var song = document.getElementById("fightSong");
           song.playbackRate = 0.5;
+          var eagleAlert = document.getElementById("eagleAlert");
+          if(!eagleAlert.paused){
+              eagleAlert.pause();
+          }
+
       } else{
           $(".title").stop();
           $("html,body").stop();
@@ -94,6 +99,10 @@ GameManager.prototype.setup = function () {
           $(".restart-button").css("background-color", "#215b33");
           var song = document.getElementById("fightSong");
           song.playbackRate = 1;
+          var eagleAlert = document.getElementById("eagleAlert");
+          if(!eagleAlert.paused){
+              eagleAlert.pause();
+          }
       }
     this.keepPlaying = previousState.keepPlaying;
 
@@ -230,7 +239,7 @@ GameManager.prototype.move = function (direction) {
           // Update the score
           self.score += merged.value;
 
-          if(merged.value == 8 && self.scary == false){
+          if(merged.value == 256 && self.scary == false){
               self.scary = true;
               $(".title").fadeOut(6000,function() {
                   $(this).text("Scary 2048").fadeIn(6000);

@@ -33,7 +33,8 @@
 
     <div class="game-container">
       <div class="game-message">
-        <p></p>
+        <p id="p-game-message"> </p>
+        <img id="diabeetus">
         <div class="lower">
 	        <a class="keep-playing-button">Keep going</a>
           <a class="retry-button">Try again</a>
@@ -78,6 +79,13 @@
           <source id="linuxAudio" src="style/music/unt-fight-song.ogg" type="audio/ogg">
           <source id="windowsAudio" src="style/music/unt-fight-song.mp3" type="audio/mp3">
       </audio>
+
+      <hidden>
+          <audio id="eagleAlert">
+              <source id="linuxAlert" src="style/music/untEagleAlert.ogg" type="audio/ogg">
+              <source id="windowsAlert" src="style/music/untEagleAlert.mp3" type="audio/mp3">
+          </audio>
+      </hidden>
 
     <p class="game-explanation">
       <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same image touch, they <strong>merge into a bigger, stronger image!</strong>

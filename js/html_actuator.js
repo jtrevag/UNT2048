@@ -129,7 +129,25 @@ HTMLActuator.prototype.message = function (won) {
   var message = won ? "You win!" : "Game over!";
 
   this.messageContainer.classList.add(type);
-  this.messageContainer.getElementsByTagName("p")[0].textContent = message;
+  //this.messageContainer.getElementsByTagName("p")[0].textContent = message;
+
+    if(won){
+
+      var song = document.getElementById("fightSong");
+      if(!song.muted){
+          controlMusic();
+      }
+      var song = document.getElementById("fightSong");
+      song.muted = true;
+      var eagleAlert = document.getElementById("eagleAlert");
+      eagleAlert.play();
+      $('#diabeetus').attr('src','style/img/diabeetus.jpg');
+      $('#diabeetus').fadeIn(100000,function(){});
+      $('#p-game-message').css('margin-top', '0px');
+    } else{
+        this.messageContainer.getElementsByTagName("p")[0].textContent = message;
+    }
+
 };
 
 HTMLActuator.prototype.clearMessage = function () {
